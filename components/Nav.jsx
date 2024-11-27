@@ -2,10 +2,23 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import React from "react";
-// import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import { useState, useEffect } from "react";
+import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
 const Nav = () => {
+  const { data: session } = useSession();
+
+
+  const [providers, setProviders] = useState(null);
+  const [toggleDropDonwn, setToggleDropDonwn] = useState(false);
+
+  useEffect(() => {
+    (async () => {
+      const response = await getProviders();
+      setProviders(response);
+    })();
+  }, []);
+
   return (
     <nav className="flex-between w-full mb-16 pt-3">
       <Link href="/" className="flex gap-2 flex-center">
@@ -21,25 +34,100 @@ const Nav = () => {
 
       {/* {Desktop Navigation} */}
       <div className="sm:flex hidden">
-        <div className="flex gap-3 md:gap-5">
-          <Link href="./create-prompt" className="black_btn">
-            Create Post
-          </Link>
+        {session?.user ? (
+          <div className="flex gap-3 md:gap-5">
+            <Link href="./create-prompt" className="black_btn">
+              Create Post
+            </Link>
 
-          <button type="button" className="outline_btn">
-            Sign Out
-          </button>
+            <button type="button" className="outline_btn" onClick={signOut}>
+              Sign Out
+            </button>
 
-          <Link href={"/profile"}>
+            <Link href={"/profile"}>
+              <Image
+                className="rounded-full"
+                width={37}
+                height={37}
+                alt="profile"
+                src="/assets/images/logo.svg"
+              ></Image>
+            </Link>
+          </div>
+        ) : (
+          <>
+            {providers &&
+              Object.values(providers).map((provider) => (
+                <button
+                  type="button"
+                  key={provider.name}
+                  onClick={() => signIn(provider.id)}
+                  className="black_btn"
+                >
+                  Sign In
+                </button>
+              ))}
+          </>
+        )}
+      </div>
+
+      {/* {Mobile Naviagtion} */}
+      <div className="sm:hidden flex relative">
+        {session?.user ? (
+          <div className="flex">
             <Image
               className="rounded-full"
-              width={27}
+              width={37}
               height={37}
               alt="profile"
               src="/assets/images/logo.svg"
-            ></Image>
-          </Link>
-        </div>
+              onClick={() => setToggleDropDonwn(!toggleDropDonwn)}
+            />
+            {toggleDropDonwn && (
+              <div className="dropdown">
+                <Link
+                  href="/profile"
+                  className="dropdown_link"
+                  onClick={() => setToggleDropDonwn(false)}
+                >
+                  My Profile
+                </Link>
+
+                <Link
+                  className="dropdown_link"
+                  href="/create-prompt"
+                  onClick={() => setToggleDropDonwn(false)}
+                >
+                  Create Prompt
+                </Link>
+                <button
+                  className="mt-5 w-full black_btn"
+                  type="button"
+                  onClick={() => {
+                    setToggleDropDonwn(false);
+                    signOut();
+                  }}
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <>
+            {providers &&
+              Object.values(providers).map((provider) => (
+                <button
+                  type="button"
+                  key={provider.name}
+                  onClick={() => signIn(provider.id)}
+                  className="black_btn"
+                >
+                  Sign In
+                </button>
+              ))}
+          </>
+        )}
       </div>
     </nav>
   );
