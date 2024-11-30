@@ -1,13 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  experimental: {
-    appDir: true,
-    serverComponentsExternalPackages: ["mongoose"],
-  },
+  serverExternalPackages: ["mongoose"], // Use the updated key
   images: {
-    domains: ["lh3.googleusercontent.com"],
+    domains: [
+      "lh3.googleusercontent.com", // Google profile pictures
+      "avatars.githubusercontent.com", // GitHub profile pictures
+    ],
   },
-  webpack(config) {
+  webpack: (config) => {
     config.experiments = {
       ...config.experiments,
       topLevelAwait: true,
@@ -16,4 +16,4 @@ const nextConfig = {
   },
 };
 
-module.exports = nextConfig;
+export default nextConfig;
