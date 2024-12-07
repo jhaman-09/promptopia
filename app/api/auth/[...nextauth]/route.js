@@ -51,7 +51,7 @@ export const authOptions = {
 
         return true;
       } catch (error) {
-        console.log("Error checking if user exists: ", error.message);
+        console.error("Error checking if user exists: ", error.message);
         return false;
       }
     },
