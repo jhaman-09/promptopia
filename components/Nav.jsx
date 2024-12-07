@@ -46,7 +46,10 @@ const Nav = () => {
 
             <Link href="/profile">
               <Image
-                src={session?.user.image}
+                src={
+                  session?.user.image ||
+                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoqE5w5oSzJ5hkVXlqk9GW5aC--Jc97eU5bA&s"
+                }
                 width={37}
                 height={37}
                 className="rounded-full"
@@ -90,7 +93,10 @@ const Nav = () => {
         {session?.user ? (
           <div className="flex">
             <Image
-              src={session?.user.image}
+              src={
+                session?.user.image ||
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRoqE5w5oSzJ5hkVXlqk9GW5aC--Jc97eU5bA&s"
+              }
               width={37}
               height={37}
               className="rounded-full"
