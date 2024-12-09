@@ -15,7 +15,7 @@ const PromptCardList = ({ posts, handleTagClick }) => {
       ))}
     </div>
   ) : (
-    <h1 className="text-center text-4xl mt-5 text-black font-semibold">
+    <h1 className="text-center text-4xl text-black font-semibold mt-10">
       No Item Found!
     </h1>
   );
@@ -59,14 +59,14 @@ const Feed = () => {
 
   return (
     <section className="feed">
-      <form className="relative w-full flex-center">
+      <form className="relative w-full text-center items-center search_input">
         <input
           type="text"
-          placeholder="Search for a tag or a username"
+          placeholder="🔍 Search for a tag or a username"
           value={searchText}
           onChange={handleSearchChange}
           required
-          className="search_input"
+          className="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-1 focus:ring-orange-500"
         />
       </form>
 
