@@ -6,15 +6,17 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Profile from "@components/Profile";
 
-const MyProfile = ({ params }) => {
+const MyProfile = ({ params: paramsPromise }) => {
   const { data: session } = useSession();
 
   const [userData, setUserData] = useState({});
 
   const router = useRouter();
 
+  const params = React.use(paramsPromise);
   const profileId = params?.profileId;
 
+  
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {

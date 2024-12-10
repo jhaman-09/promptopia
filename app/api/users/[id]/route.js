@@ -10,7 +10,7 @@ export const GET = async (req, { params }) => {
         status: 400,
       });
     }
-    
+
     const userDetails = await User.findById(params.id);
 
     if (!userDetails) {

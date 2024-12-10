@@ -67,8 +67,8 @@ const Feed = () => {
 
   return (
     <section className="feed">
-      <form className="relative w-full text-center items-center search_input">
-        <div className="w-full flex flex-row items-center border border-gray-300 rounded-md focus-within:ring-2 focus-within:ring-orange-500">
+      <form className="relative w-full text-center items-center search_input focus-within:ring-1 focus-within:ring-orange-500">
+        <div className="w-full flex flex-row items-center rounded-md">
           <FaSearch className="text-gray-400 ml-2" />
           <input
             type="text"
@@ -76,7 +76,7 @@ const Feed = () => {
             value={searchText}
             onChange={handleSearchChange}
             required
-            className="w-full pl-2 py-1 text-lg focus:outline-none"
+            className="w-full pl-4 py-1 text-lg focus:outline-none"
           />
         </div>
       </form>

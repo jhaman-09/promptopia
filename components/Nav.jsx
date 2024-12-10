@@ -115,7 +115,7 @@ const Nav = () => {
             {toggleDropdown && (
               <div className="dropdown">
                 <Link
-                  href={`/profile/session?.user.id`}
+                  href={`/profile/${session?.user.id}`}
                   className="dropdown_link"
                   onClick={() => setToggleDropdown(false)}
                 >
