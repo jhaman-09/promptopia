@@ -17,13 +17,16 @@ const UpdatePrompt = () => {
   });
 
   const getPromptDetailsById = async () => {
-    const res = await fetch(`/api/prompt/${promptId}`);
-    const data = await res.json();
-
-    setPost({
-      prompt: data.prompt,
-      tag: data.tag,
-    });
+    try {
+      const res = await fetch(`/api/prompt/${promptId}`);
+      const data = await res.json();
+      setPost({
+        prompt: data.prompt,
+        tag: data.tag,
+      });
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

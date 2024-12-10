@@ -18,6 +18,7 @@ const Nav = () => {
       setProviders(res);
     })();
   }, []);
+  
 
   return (
     <nav className="flex-between w-full mb-16 pt-3">
@@ -44,7 +45,7 @@ const Nav = () => {
               Sign Out
             </button>
 
-            <Link href="/profile">
+            <Link href={`/profile/${session?.user.id}`}>
               <Image
                 src={
                   session?.user.image ||
@@ -107,7 +108,7 @@ const Nav = () => {
             {toggleDropdown && (
               <div className="dropdown">
                 <Link
-                  href="/profile"
+                  href={`/profile/session?.user.id`}
                   className="dropdown_link"
                   onClick={() => setToggleDropdown(false)}
                 >

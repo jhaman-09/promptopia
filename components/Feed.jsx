@@ -53,13 +53,17 @@ const Feed = () => {
     }
   };
 
-  const handleTagClick = () => {};
+  const handleTagClick = (text) => {
+    const filtered = posts.filter((post) =>
+      post.tag.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredPosts(filtered);
+  };
 
   useEffect(() => {
     fetchPosts();
   }, []);
 
-  console.log(posts);
 
   return (
     <section className="feed">
