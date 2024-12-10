@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import { signIn, signOut, useSession, getProviders } from "next-auth/react";
 
+
 const Nav = () => {
   const { data: session } = useSession();
 
@@ -18,7 +19,6 @@ const Nav = () => {
       setProviders(res);
     })();
   }, []);
-  
 
   return (
     <nav className="flex-between w-full mb-16 pt-3">
@@ -34,7 +34,7 @@ const Nav = () => {
       </Link>
 
       {/* Desktop Navigation */}
-      <div className="sm:flex hidden">
+      <div className="sm:flex hidden relative">
         {session?.user ? (
           <div className="flex gap-3 md:gap-5">
             <Link href="/create-prompt" className="black_btn">
@@ -62,7 +62,7 @@ const Nav = () => {
           <>
             <button
               type="button"
-              onClick={() => setShowSignInOptions(!showSignInOptions)} // Toggle sign-in options
+              onClick={() => setShowSignInOptions(true)} // Toggle sign-in options
               className="black_btn"
             >
               Sign Up / Sign In
@@ -70,7 +70,14 @@ const Nav = () => {
 
             {/* Sign-In Options (Dropdown) */}
             {showSignInOptions && (
-              <div className="absolute bg-white shadow-md p-4 mt-2 rounded-lg">
+              <div className="absolute bg-white shadow-md p-5 mt-2 rounded-lg">
+                <button
+                  onClick={() => setShowSignInOptions(false)} // Close the dropdown
+                  className="absolute top-1 right-1 text-red-500 hover:text-gray-800"
+                >
+                  ❌
+                </button>
+
                 {providers &&
                   Object.values(providers).map((provider) => (
                     <button
@@ -138,7 +145,7 @@ const Nav = () => {
           <>
             <button
               type="button"
-              onClick={() => setShowSignInOptions(!showSignInOptions)} // Toggle sign-in options
+              onClick={() => setShowSignInOptions(true)} // Toggle sign-in options
               className="black_btn"
             >
               Sign Up / Sign In
@@ -146,7 +153,13 @@ const Nav = () => {
 
             {/* Sign-In Options (Dropdown) */}
             {showSignInOptions && (
-              <div className="absolute bg-white shadow-md p-4 mt-2 rounded-lg">
+              <div className="absolute bg-white shadow-md p-5 mt-2 rounded-lg">
+                <button
+                  onClick={() => setShowSignInOptions(false)} // Close the dropdown
+                  className="absolute top-1 right-1 text-gray-500 hover:text-gray-800"
+                >
+                  ❌
+                </button>
                 {providers &&
                   Object.values(providers).map((provider) => (
                     <button
