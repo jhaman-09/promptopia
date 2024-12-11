@@ -1,12 +1,12 @@
 import { connectDB } from "@utils/database";
 import User from "@models/user";
 
-export const GET = async (req, context) => {
+export const GET = async (req, { params }) => {
   try {
     await connectDB();
-    const { params } = context;
-    
-    const userDetails = await User.findById(params.id);
+    const id = (await params).id;
+
+    const userDetails = await User.findById(id);
 
     if (!userDetails) {
       return new Response("User details not found.", {

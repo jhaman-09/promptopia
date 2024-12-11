@@ -2,12 +2,12 @@ import { connectDB } from "@utils/database";
 import Prompt from "@models/prompt";
 
 // GET prompt
-export const GET = async (req, context) => {
+export const GET = async (req, { params }) => {
   try {
     await connectDB();
-    const { params } = context;
+    const getId = (await params).id;
 
-    const prompt = await Prompt.findById(params.id);
+    const prompt = await Prompt.findById(getId);
     if (!prompt) return new Response("Prompt not found", { statue: 400 });
 
     return new Response(JSON.stringify(prompt), {
@@ -24,10 +24,12 @@ export const GET = async (req, context) => {
 export const PATCH = async (req, { params }) => {
   const { prompt, tag } = await req.json();
 
+  const Id = (await params).id;
+
   try {
     await connectDB();
 
-    const existingPrompt = await Prompt.findById(params.id);
+    const existingPrompt = await Prompt.findById(Id);
 
     if (!existingPrompt)
       return new Response("Prompt not found", { statue: 400 });
@@ -51,7 +53,9 @@ export const PATCH = async (req, { params }) => {
 export const DELETE = async (req, { params }) => {
   try {
     await connectDB();
-    await Prompt.findByIdAndDelete(params.id);
+    const id = (await params).id;
+
+    await Prompt.findByIdAndDelete(id);
 
     return new Response("Prompt deleted successfully!", {
       status: 200,
