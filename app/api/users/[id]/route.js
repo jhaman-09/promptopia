@@ -5,12 +5,6 @@ export const GET = async (req, { params }) => {
   try {
     await connectDB();
 
-    if (!params?.id) {
-      return new Response("Missing user ID in request parameters.", {
-        status: 400,
-      });
-    }
-
     const userDetails = await User.findById(params.id);
 
     if (!userDetails) {

@@ -33,10 +33,14 @@ const Feed = () => {
   };
 
   const fetchPosts = async () => {
-    const res = await fetch("/api/prompt");
-    const data = await res.json();
-    setPosts(data);
-    setFilteredPosts(data);
+    try {
+      const res = await fetch("/api/prompt");
+      const data = await res.json();
+      setPosts(data);
+      setFilteredPosts(data);
+    } catch (error) {
+      console.error(error)
+    }
   };
 
   const filterPosts = async (text) => {

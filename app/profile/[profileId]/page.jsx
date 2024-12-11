@@ -16,7 +16,6 @@ const MyProfile = ({ params: paramsPromise }) => {
   const params = React.use(paramsPromise);
   const profileId = params?.profileId;
 
-  
   const [posts, setPosts] = useState([]);
 
   const fetchPosts = async () => {
@@ -31,6 +30,7 @@ const MyProfile = ({ params: paramsPromise }) => {
 
   useEffect(() => {
     fetchPosts();
+    fetchUser();
   }, []);
 
   const handleEdit = (post) => {
@@ -66,10 +66,6 @@ const MyProfile = ({ params: paramsPromise }) => {
       console.error("Failed to fetched user details.", error);
     }
   };
-
-  useEffect(() => {
-    fetchUser();
-  }, []);
 
   return (
     <Profile
