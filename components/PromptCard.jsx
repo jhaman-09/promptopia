@@ -16,12 +16,12 @@ const PromptCard = ({ post, handleTagClick, handleEdit, handleDelete }) => {
     navigator.clipboard.writeText(post.prompt);
     setTimeout(() => setCopied(""), 10000);
   };
-  
+
   const navigateToProfile = () => {
-    if (post?.creator?._id) {
+    if (post?.creator?._id && session?.user) {
       router.push(`/profile/${post?.creator?._id}`);
     }
-  }
+  };
 
   return (
     <div className="prompt_card">
